@@ -1,13 +1,18 @@
 
-
-#define COIL 7
-#define SENSE A2
-
+#if defined(__AVR_ATtiny85__)
+# define COIL 5
+# define SENSE A1
+# define LED 1
+#else
+# define COIL 7
+# define SENSE A2
+# define LED LED_BUILTIN
+#endif
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED, OUTPUT);
   pinMode(COIL, OUTPUT);
   pinMode(SENSE, INPUT);
   digitalWrite(SENSE, LOW);
@@ -42,12 +47,12 @@ void loop()
   // kick
   delay(KICK_DELAY);
   digitalWrite(COIL, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);
+  // digitalWrite(LED, HIGH);
   delay(KICK_DURATION);
   digitalWrite(COIL, LOW);
 
   delay(POST_KICK_WAIT);
-  digitalWrite(LED_BUILTIN, LOW);
+  // digitalWrite(LED, LOW);
 }
 
 
